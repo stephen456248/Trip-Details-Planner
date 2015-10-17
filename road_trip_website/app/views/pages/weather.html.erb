@@ -1,2 +1,5 @@
-<h1>Pages#weather</h1>
-<p>Find me in app/views/pages/weather.html.erb</p>
+city: 
+<%= form_tag do %>
+  <%= text_field_tag :city %>
+  <%= submit_tag "Search" %>
+<% end %>

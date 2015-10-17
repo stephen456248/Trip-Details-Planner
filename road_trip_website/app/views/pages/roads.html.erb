@@ -1,2 +1,5 @@
-<h1>Pages#roads</h1>
-<p>Find me in app/views/pages/roads.html.erb</p>
+highway: 
+<%= form_tag do %>
+  <%= text_field_tag :highway %>
+  <%= submit_tag "Search" %>
+<% end %>
