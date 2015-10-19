@@ -10,7 +10,4 @@ class PagesController < ApplicationController
 
   def cams
   end
-
-  def second_map
-  end
 end
