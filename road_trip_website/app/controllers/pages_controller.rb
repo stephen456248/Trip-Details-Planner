@@ -6,6 +6,7 @@ class PagesController < ApplicationController
   end
 
   def weather_input
+    geocoding_api_key = ENV["GEOCODING_API_KEY"]
     base_url = "http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?"
 
     lat = 35.37
