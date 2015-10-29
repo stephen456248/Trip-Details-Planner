@@ -1,23 +1,19 @@
-Weather city 1: 
+
 <%= form_tag do %>
-  <%= text_field_tag :city1 %>
+  <div id="form-inputs">
+    <%= text_field_tag :city1 %>
+    <%= text_field_tag :city2 %>
+    <%= text_field_tag :city3 %>
+    <%= text_field_tag :city4 %>
+  </div>
   <%= submit_tag "Search" %>
 <% end %><br><br>
 
-Weather city 2: 
-<%= form_tag do %>
-  <%= text_field_tag :city2 %>
-  <%= submit_tag "Search" %>
-<% end %><br><br>
+<script type="text/javascript">
+//alert("Here I am");
 
-Weather city 3: 
-<%= form_tag do %>
-  <%= text_field_tag :city3 %>
-  <%= submit_tag "Search" %>
-<% end %><br><br>
-
-Weather city 4: 
-<%= form_tag do %>
-  <%= text_field_tag :city4 %>
-  <%= submit_tag "Search" %>
-<% end %><br><br>
+// var input = document.createElement("input");
+// input.type = "text";
+// var inputs = document.getElementsById("form-inputs");
+// inputs.appendChild(input);
+</script>

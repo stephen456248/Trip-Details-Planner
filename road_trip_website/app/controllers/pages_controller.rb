@@ -7,16 +7,18 @@ class PagesController < ApplicationController
 
   def weather_input
     geocoding_api_key = ENV["GEOCODING_API_KEY"]
+    @geo = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{params["city1"].gsub(" ", "%20")}&key=" + geocoding_api_key, verify: false)
     base_url = "http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?"
 
-    lat = 35.37
-    lon = -119.02
-    time = Time.now + 1.day
+    lat = @geo["results"].first["geometry"]["location"]["lat"]
+    lon = @geo["results"].first["geometry"]["location"]["lng"]
+    time = Time.now + 4.day
     endtime = time.strftime("%Y-%m-%d")
     params = "lat=#{lat}" + "&" +
              "lon=#{lon}" + "&" +
              "end=#{endtime}T00:00:00" + "&" +
-             "product=time-series"
+             "product=glance" +
+             "iccons=true"
              
     @data = HTTParty.get(base_url + params)
   end

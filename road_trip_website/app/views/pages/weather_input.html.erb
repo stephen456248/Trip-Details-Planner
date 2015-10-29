@@ -1,3 +1,6 @@
 weather input here!
-
-<%= @data %>
+<pre>
+<%= JSON.pretty_generate(@data).html_safe %>
+</pre>
+<hr>
+<%= @geo %>
