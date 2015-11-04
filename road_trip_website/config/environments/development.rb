@@ -34,4 +34,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # This code makes the session storage location in RAM instead of a temp file on the HD
+  config.cache_store = :memory_store
 end
