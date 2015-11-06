@@ -1,12 +1,6 @@
 Rails.application.routes.draw do
   
 
-  get 'dogs/feed'
-
-  get 'dogs/walk'
-
-  get 'dogs/call'
-
   get 'weather', to: 'pages#weather'
   post 'weather', to: 'pages#weather_input'
 

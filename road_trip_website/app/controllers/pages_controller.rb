@@ -25,7 +25,7 @@ class PagesController < ApplicationController
     redirect_to 'http://quickmap.dot.ca.gov/'
   end
 
-  private 
+  private
 
   def geocoding_api_query!
     geocoding_api_key = ENV["GEOCODING_API_KEY"]
@@ -37,18 +37,33 @@ class PagesController < ApplicationController
   end
 
   def weather_api_query!
-    weather_url = "http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?"
-
-    lat = @geo["results"].first["geometry"]["location"]["lat"]
-    lon = @geo["results"].first["geometry"]["location"]["lng"]
-    time = Time.now + 4.day
-    endtime = time.strftime("%Y-%m-%d")
-    weather_params = "lat=#{lat}" + "&" +
-             "lon=#{lon}" + "&" +
-             "end=#{endtime}T00:00:00" + "&" +
-             "product=glance"
-             
     @data = HTTParty.get(weather_url + weather_params)
     session[:weather][:data] = @data.parsed_response
+    session[:weather][:highs] = session[:weather][:data]["dwml"]["data"]["parameters"]["temperature"][0]["value"]
   end
+
+  def lat
+    @geo["results"].first["geometry"]["location"]["lat"]
+  end
+
+  def lon
+    @geo["results"].first["geometry"]["location"]["lng"]
+  end
+
+  def endtime
+    (Time.now + 5.day).strftime("%Y-%m-%d")
+  end
+
+  def weather_url
+    "http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?"
+  end
+
+  def weather_params
+    "lat=#{lat}" + "&" +
+    "lon=#{lon}" + "&" +
+    "end=#{endtime}T00:00:00" + "&" +
+    "product=glance"
+  end
+
+
 end
