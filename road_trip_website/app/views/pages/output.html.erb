@@ -1,9 +1,73 @@
-<div>
-  <div>
-    <div>
+<link rel="stylesheet" type="text/css" href="Users\Stephen\Road_Trip|road_trip_website\app\views\pages\output.html.erb">
 
+<style type="text/css">
+
+.base_div{
+	opacity:0.8;
+	background-color:#ccc;
+	position:relative;
+	width:100%;
+	height:100%;
+	top:0px;
+	left:0px;
+	z-index:1000;
+	overflow: scroll;
+	
+}
+
+.forcast_div{
+	width: 900px;
+	height: 500px;
+	border: 2px solid black;
+	resize: both;
+	text-align: center;
+}
+
+.day_forcast_div{
+	width:150px;
+	height:350px;
+	float:left;
+	background:white;
+	border: 2px solid black;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 30px;
+	margin-top: 20px;
+	resize: both;
+	display: inline-block;
+}
+
+.roads{
+	width: 900px;
+	resize: both;
+	border: 2px solid black;
+}
+
+</style>
+
+
+<div id='base_div' class='base_div'>
+
+  <div id='forcast_div' class='forcast_div'>
+  		<h1 align="center">Four Day Weather Outlook</h1>
+
+    <div id='day1_forcast_div' class='day_forcast_div'>
+    	<%= session[:weather][:highs] = session[:weather][:data]["dwml"]["data"]["parameters"]["temperature"][0]["value"] %>
+    	<%= session[:weather][:lows] = session[:weather][:data]["dwml"]["data"]["parameters"]["temperature"][1]["value"] %>
     </div>
 
+    <div id='day2_forcast_div' class='day_forcast_div'>
+    </div>
+
+    <div id='day3_forcast_div' class='day_forcast_div'>
+    </div>
+
+    <div id='day4_forcast_div' class='day_forcast_div'>
+    </div>
+
+  </div>
+  <div id='roads' class='roads'>
+  		<h1 align="center">Roads</h1>
   </div>
 
 </div>

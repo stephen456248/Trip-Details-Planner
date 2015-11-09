@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   get  'cams', to: 'pages#cams'
 
+  get 'output', to: 'pages#output'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
