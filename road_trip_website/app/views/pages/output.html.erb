@@ -43,31 +43,33 @@
 	border: 2px solid black;
 }
 
+.high{
+	color: #D13;
+}
+
+.low{
+	color: #1E2;
+}
+
 </style>
 
 
 <div id='base_div' class='base_div'>
 
   <div id='forcast_div' class='forcast_div'>
-  		<h1 align="center">Four Day Weather Outlook</h1>
+  	<h1 align="center">Four Day Weather Outlook</h1>
 
-    <div id='day1_forcast_div' class='day_forcast_div'>
-    	<%= session[:weather][:highs] = session[:weather][:data]["dwml"]["data"]["parameters"]["temperature"][0]["value"] %>
-    	<%= session[:weather][:lows] = session[:weather][:data]["dwml"]["data"]["parameters"]["temperature"][1]["value"] %>
+  	<% (0..7).each do |day| %>
+    <div id='day<% day %>_forcast_div' class='day_forcast_div'>
+      <span class='high'><%= session[:weather][:highs][day] %></span>
+      <span class='low'><%= session[:weather][:lows][day] %></span>  
+      <%= image_tag(session[:weather][:icons][day*4], alt: "Weather Image") %>
     </div>
-
-    <div id='day2_forcast_div' class='day_forcast_div'>
-    </div>
-
-    <div id='day3_forcast_div' class='day_forcast_div'>
-    </div>
-
-    <div id='day4_forcast_div' class='day_forcast_div'>
-    </div>
+    <% end %>
 
   </div>
   <div id='roads' class='roads'>
-  		<h1 align="center">Roads</h1>
+  	<h1 align="center">Roads</h1>
   </div>
 
 </div>

@@ -9,6 +9,9 @@ weather input here!
 <% session[:weather][:lows].each do |temp| %>
 	<li><%= temp %></li>
 <% end %>
+
+
+
 <pre>
 <%= JSON.pretty_generate(@data).html_safe %>
 </pre>

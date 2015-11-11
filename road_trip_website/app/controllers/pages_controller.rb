@@ -39,8 +39,10 @@ class PagesController < ApplicationController
   def weather_api_query!
     @data = HTTParty.get(weather_url + weather_params)
     session[:weather][:data] = @data.parsed_response
-    session[:weather][:highs] = session[:weather][:data]["dwml"]["data"]["parameters"]["temperature"][0]["value"]
-    session[:weather][:lows] = session[:weather][:data]["dwml"]["data"]["parameters"]["temperature"][1]["value"]
+    parameters = session[:weather][:data]["dwml"]["data"]["parameters"]
+    session[:weather][:highs] = Array(parameters["temperature"][0]["value"])
+    session[:weather][:lows] = Array(parameters["temperature"][1]["value"])
+    session[:weather][:icons] = Array(parameters["conditions_icon"]["icon_link"])
   end
 
   def lat
