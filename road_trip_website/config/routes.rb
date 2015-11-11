@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  
-
   get 'weather', to: 'pages#weather'
   post 'weather', to: 'pages#weather_input'
 
