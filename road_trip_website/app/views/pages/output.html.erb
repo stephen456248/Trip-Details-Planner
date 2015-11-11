@@ -61,7 +61,7 @@
 
   	<% (0..7).each do |day| %>
     <div id='day<% day %>_forcast_div' class='day_forcast_div'>
-      <span class='high'><%= session[:weather][:highs][day] %></span>
+      
       <span class='low'><%= session[:weather][:lows][day] %></span>  
       <%= image_tag(session[:weather][:icons][day*4], alt: "Weather Image") %>
     </div>
