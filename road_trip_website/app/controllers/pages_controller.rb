@@ -25,6 +25,36 @@ class PagesController < ApplicationController
     redirect_to 'http://quickmap.dot.ca.gov/'
   end
 
+  def output
+    highs = session[:weather][:highs]
+    lows = session[:weather][:lows]
+    icons = session[:weather][:icons]
+    # [[i0, h0], [i4,l0]...[i26,l3]]
+    @days = []
+    #if blah
+    #  @days[0] = {icon: icons[0],  temp: lows[0], type: "low"}
+    #  @days[1] = {icon: icons[4],  temp: highs[0], type: "high"}
+    #  @days[2] = {icon: icons[8],  temp: lows[1], type: "low"}
+    #  @days[3] = {icon: icons[12], temp: highs[1], type: "high"}
+    #  @days[4] = {icon: icons[16], temp: lows[2], type: "low"}
+    #  @days[5] = {icon: icons[20], temp: highs[2], type: "high"}
+    #  @days[6] = {icon: icons[24], temp: lows[3], type: "low"}
+    #  @days[7] = {icon: icons[26], temp: highs[3], type: "high"}
+    #else
+      @days[0] = {icon: icons[0],  temp: highs[0], type: "high"}
+      @days[1] = {icon: icons[4],  temp: lows[0], type: "low"}
+      @days[2] = {icon: icons[8],  temp: highs[1], type: "high"}
+      @days[3] = {icon: icons[12], temp: lows[1], type: "low"}
+      @days[4] = {icon: icons[16], temp: highs[2], type: "high"}
+      @days[5] = {icon: icons[20], temp: lows[2], type: "low"}
+      @days[6] = {icon: icons[24], temp: highs[3], type: "high"}
+      @days[7] = {icon: icons[26], temp: lows[3], type: "low"}
+    #end
+    url_base = "http://www.dot.ca.gov/hq/roadinfo/"
+    @road = HTTParty.get(url_base + params[:road])
+    session[:road] = @road.parsed_response.gsub(/\r\n/, "<br>")
+  end
+
   private
 
   def geocoding_api_query!
@@ -54,7 +84,7 @@ class PagesController < ApplicationController
   end
 
   def endtime
-    (Time.now + 5.day).strftime("%Y-%m-%d")
+    (Time.now + 8.day).strftime("%Y-%m-%d")
   end
 
   def weather_url

@@ -16,42 +16,71 @@
 }
 
 .forcast_div{
-	width: 900px;
-	height: 500px;
+	width: 950px;
+	height: 400px;
 	border: 2px solid black;
 	resize: both;
 	text-align: center;
+	overflow: auto;
 }
 
 .day_forcast_div{
-	width:150px;
-	height:350px;
+	width:100px;
+	height:250px;
 	float:left;
 	background:white;
 	border: 2px solid black;
-	margin-left: 20px;
-	margin-right: 20px;
-	margin-bottom: 30px;
-	margin-top: 20px;
+	margin-left: 10px;
+	margin-right: 0px;
+	margin-bottom: 20px;
+	margin-top: 10px;
 	resize: both;
 	display: inline-block;
 }
 
 .roads{
-	width: 900px;
+	width: 950px;
 	resize: both;
 	border: 2px solid black;
 }
 
 .high{
-	color: #D13;
+	color: #F90202;
+	width:92px;
+	height:20px;
+	float:center;
+	background:white;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	resize: both;
+	display: inline-block;
+
 }
 
 .low{
-	color: #1E2;
+	color: #2568D0;
+}
+
+.image{
+	width:92px;
+	height:50px;
+	float:center;
+	background:white;
+	margin-bottom: 70px;
+	margin-top: 100px;
+	margin-left: 5px;
+	margin-right: 5px;
+	resize: both;
+	display: inline-block;
 }
 
 </style>
+
+<pre>
+  <%= session[:weather][:icons].inspect.html_safe %>
+</pre>
 
 
 <div id='base_div' class='base_div'>
@@ -59,17 +88,21 @@
   <div id='forcast_div' class='forcast_div'>
   	<h1 align="center">Four Day Weather Outlook</h1>
 
-  	<% (0..7).each do |day| %>
-    <div id='day<% day %>_forcast_div' class='day_forcast_div'>
-      <span class='high'><%= session[:weather][:highs][day] %></span>
-      <span class='low'><%= session[:weather][:lows][day] %></span>  
-      <%= image_tag(session[:weather][:icons][day*4], alt: "Weather Image") %>
+  	<% @days.each_with_index do |day, i| %>
+    <div id='day<%= i %>_forcast_div' class='day_forcast_div'>
+      <span class='image'> <%= image_tag(day[:icon], alt: "Weather Image") %></span><br>
+      <span class='<%= day[:type] %>'><%= day[:temp] %></span>
+      
     </div>
     <% end %>
 
   </div>
   <div id='roads' class='roads'>
   	<h1 align="center">Roads</h1>
+
+<pre>
+  <%= session[:road].inspect.html_safe %>
+</pre>
   </div>
 
 </div>
