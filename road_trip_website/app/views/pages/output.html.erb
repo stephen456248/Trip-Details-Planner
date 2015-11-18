@@ -76,10 +76,15 @@
 	display: inline-block;
 }
 
+.road-name{
+	padding-left: 40px;
+
+}
+
 </style>
 
 <pre>
-  <%= session[:weather][:icons].inspect.html_safe %>
+  <%# session[:weather][:icons].inspect.html_safe %>
 </pre>
 
 
@@ -98,10 +103,14 @@
   </div>
   <div id='roads' class='roads'>
   	<h1 align="center">Roads</h1>
-
-<pre>
-  <%= session[:road].inspect.html_safe %>
-</pre>
+  	<% session[:roads].each do |road| %>
+  	  <h2 class="road-name"><%= road.split("<br>")[1] %> </h2>
+  	  <span><%= road.html_safe %></span>
+  	  <hr>
+  	<% end %>
+  	<% if session[:roads].length < 4 %>
+  		<%= link_to "Select Another Road", roads_path %>
+  	<% end %>
   </div>
 
 </div>

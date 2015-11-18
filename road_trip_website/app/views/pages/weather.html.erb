@@ -1,10 +1,16 @@
+<style type="text/css">
+	.city-input{
+		margin-bottom: 10px;
+	}
+</style>
 
+<h1>City Weather Input</h1>
 <%= form_tag do %>
   <div id="form-inputs">
-    <%= text_field_tag :city1 %>
-    <%= text_field_tag :city2 %>
-    <%= text_field_tag :city3 %>
-    <%= text_field_tag :city4 %>
+   <%= label_tag "city1:" %><%= text_field_tag :city1, nil, class: "city-input" %><br>
+   <%= label_tag "city2:" %><%= text_field_tag :city2, nil, class: "city-input" %><br>
+   <%= label_tag "city3:" %><%= text_field_tag :city3, nil, class: "city-input" %><br>
+   <%= label_tag "city4:" %><%= text_field_tag :city4, nil, class: "city-input" %><br>
   </div>
   <%= submit_tag "Search" %>
 <% end %><br><br>

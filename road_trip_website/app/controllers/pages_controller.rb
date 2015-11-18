@@ -26,9 +26,15 @@ class PagesController < ApplicationController
   end
 
   def output
-    highs = session[:weather][:highs]
-    lows = session[:weather][:lows]
-    icons = session[:weather][:icons]
+    if session[:weather]
+      highs = session[:weather][:highs]
+      lows = session[:weather][:lows]
+      icons = session[:weather][:icons]
+    else
+      highs = [0]*4
+      lows = [0]*4
+      icons = [""]*27
+    end
     # [[i0, h0], [i4,l0]...[i26,l3]]
     @days = []
     #if blah
@@ -50,9 +56,18 @@ class PagesController < ApplicationController
       @days[6] = {icon: icons[24], temp: highs[3], type: "high"}
       @days[7] = {icon: icons[26], temp: lows[3], type: "low"}
     #end
-    url_base = "http://www.dot.ca.gov/hq/roadinfo/"
-    @road = HTTParty.get(url_base + params[:road])
-    session[:road] = @road.parsed_response.gsub(/\r\n/, "<br>")
+    if params[:road]
+      session[:roads] ||= []
+      url_base = "http://www.dot.ca.gov/hq/roadinfo/"
+      @road = HTTParty.get(url_base + params[:road])
+      session[:roads] << @road.parsed_response.gsub(/\r\n/, "<br>")
+      session[:roads] = session[:roads].uniq.last 4
+    else
+      if session[:roads].nil? || session[:roads].empty?
+        session[:roads] = []
+      end
+    end
+
   end
 
   private
