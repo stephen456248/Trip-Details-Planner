@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post 'weather', to: 'pages#weather_input'
 
   get  'roads', to:'pages#roads'
+  get  'roads_input', to:'pages#roads_input'
 
   get  'cams', to: 'pages#cams'
 

@@ -24,7 +24,7 @@
 	overflow: auto;
 }
 
-.day_forcast_div{
+.period_forcast_div{
 	width:100px;
 	height:250px;
 	float:left;
@@ -84,7 +84,7 @@
 </style>
 
 <pre>
-  <%# session[:weather][:icons].inspect.html_safe %>
+  <%# @forecasts.inspect.html_safe %>
 </pre>
 
 
@@ -92,23 +92,26 @@
 
   <div id='forcast_div' class='forcast_div'>
   	<h1 align="center">Four Day Weather Outlook</h1>
-
-  	<% @days.each_with_index do |day, i| %>
-    <div id='day<%= i %>_forcast_div' class='day_forcast_div'>
-      <span class='image'> <%= image_tag(day[:icon], alt: "Weather Image") %></span><br>
-      <span class='<%= day[:type] %>'><%= day[:temp] %></span>
+<% @forecasts.each do |forecast| %>
+<h1><%= forecast.city %></h1>
+  	<% forecast.periods.each_with_index do |period, i| %>
+    <div id='period<%= i %>_forcast_div' class='period_forcast_div'>
+      <span class='image'> <%= image_tag(period[:icon], alt: "Weather Image") %></span><br>
+      <span class='<%= period[:type] %>'><%= period[:temp] %></span>
     </div>
     <% end %>
+    <hr>
+<% end %>
 
   </div>
   <div id='roads' class='roads'>
   	<h1 align="center">Roads</h1>
-  	<% session[:roads].each do |road| %>
+  	<% @roads.each do |road| %>
   	  <h2 class="road-name"><%= road.split("<br>")[1] %> </h2>
   	  <span><%= road.html_safe %></span>
   	  <hr>
   	<% end %>
-  	<% if session[:roads].length < 4 %>
+  	<% if @roads.length < 4 %>
   		<%= link_to "Select Another Road", roads_path %>
   	<% end %>
   </div>
