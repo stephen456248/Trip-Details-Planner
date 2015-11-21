@@ -15,6 +15,15 @@
 	
 }
 
+.header_div{
+	width: 950;
+	height: 300;
+	border: 2px;
+	position: fixed;
+	top: 0px;
+	padding: 20px;
+}
+
 .forcast_div{
 	width: 950px;
 	height: 400px;
@@ -84,8 +93,10 @@
 </style>
 
 <pre>
-  <%# @forecasts.inspect.html_safe %>
+  <%= session[:debug_weather].html_safe %>
+  <%# @forecasts.first.periods.inspect.html_safe %>
 </pre>
+
 
 
 <div id='base_div' class='base_div'>
@@ -96,6 +107,7 @@
 <h1><%= forecast.city %></h1>
   	<% forecast.periods.each_with_index do |period, i| %>
     <div id='period<%= i %>_forcast_div' class='period_forcast_div'>
+    <h3><%# period[:name].capitalize %></h3>
       <span class='image'> <%= image_tag(period[:icon], alt: "Weather Image") %></span><br>
       <span class='<%= period[:type] %>'><%= period[:temp] %></span>
     </div>

@@ -10,6 +10,7 @@ class PagesController < ApplicationController
     session[:forecasts] ||= []
     geo = geocoding_api_query!
     weather = weather_api_query!
+    session[:debug_weather] = weather.dup.to_json
     forecast = Forecast.new(weather, params["city"])
     session[:forecasts] << forecast
     session[:forecasts] = session[:forecasts].uniq.last 4
