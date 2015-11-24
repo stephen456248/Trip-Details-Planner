@@ -11,16 +11,7 @@ class Forecast
   end
 
   def periods
-    
-    return [{icon: @icons[0],  temp: @highs[0], type: "high"},
-      {icon: @icons[4],  temp: @lows[0], type: "low"},
-      {icon: @icons[8],  temp: @highs[1], type: "high"},
-      {icon: @icons[12], temp: @lows[1], type: "low"},
-      {icon: @icons[16], temp: @highs[2], type: "high"},
-      {icon: @icons[20], temp: @lows[2], type: "low"},
-      {icon: @icons[24], temp: @highs[3], type: "high"},
-      {icon: @icons[26], temp: @lows[3], type: "low"}]
-    #return @periods if @periods
+    return @periods if @periods
     data = @weather["dwml"]["data"]
     layouts = data["time_layout"]
     icons_lookup_by_date = layouts.find {|layout| layout["layout_key"].match(/p3h/)}["start_valid_time"]
@@ -62,14 +53,14 @@ class Forecast
       end
     end
 
-    periods = []
+    @periods = []
     layouts.each do |layout|
-      periods += layout[:periods]
+      @periods += layout[:periods]
     end
 
-    periods = periods.sort_by {|period| DateTime.parse(period[:time])}
+    @periods = @periods.sort_by {|period| DateTime.parse(period[:time])}.take 8
 
-    periods.each {|p| puts p.inspect}
+    return @periods
 
   end
 
